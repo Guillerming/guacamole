@@ -1,0 +1,6 @@
+{
+  "*.js": ["npm run lint:js", "npm run format:js"],
+  "*.ts": ["npm run lint:js", "npm run format:js"],
+  "*.vue": ["npm run lint:js", "npm run format:js"],
+  "*.php": ["composer run lint", "composer run format"]
+}

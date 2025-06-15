@@ -1,0 +1,23 @@
+FROM php:8.4-fpm
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN apt-get update \
+    && apt-get install -y libpq-dev git unzip curl \
+    && docker-php-ext-install pdo pdo_pgsql
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+WORKDIR /var/www/html
+COPY composer.json composer.lock ./
+COPY package.json package-lock.json ./
+COPY .env ./
+
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install -g vite && npm install
+
+RUN chown -R www-data:www-data /var/www/html
+
+EXPOSE 9000
+CMD ["php-fpm"]

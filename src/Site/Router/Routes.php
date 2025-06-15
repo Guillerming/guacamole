@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Site\Router;
+
+use Guacamole\Router\RouteModel;
+use Guacamole\Router\Router;
+use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
+use Site\Api\Test\Test;
+use Site\UI\Pages\Dashboard\DashboardPage;
+use Site\UI\Pages\Home\HomePage;
+
+class Routes {
+
+    public static function home(): void {
+        Router::register(
+            new RouteModel(
+                method: 'GET',
+                path: '/',
+                controller: HomePage::class,
+                framework: FrontendFrameworks::None,
+            )
+        );
+    }
+
+    public static function dashboard(): void {
+        Router::register(
+            new RouteModel(
+                method: 'GET',
+                path: '/dashboard',
+                controller: DashboardPage::class,
+                framework: FrontendFrameworks::Vue,
+            )
+        );
+    }
+}

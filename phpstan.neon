@@ -1,0 +1,14 @@
+parameters:
+  level: max
+  paths:
+    - src
+  checkMissingVarTagTypehint: true
+  checkUninitializedProperties: true
+  checkUnionTypes: true
+  checkExplicitMixed: true
+  checkFunctionNameCase: true
+  reportUnmatchedIgnoredErrors: true
+  inferPrivatePropertyTypeFromConstructor: true
+  ignoreErrors: []
+  excludePaths:
+    - dist/*

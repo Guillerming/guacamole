@@ -1,0 +1,7 @@
+vendor/
+node_modules/
+dist/
+certs/
+.env
+.php-cs-fixer.cache
+.DS_Store
