@@ -16,19 +16,19 @@ abstract class HttpResource {
 
     private static ?HeaderCollection $headers = null;
 
-    private static function init(): void {
+    private static function initHttpResourceAbstractClass(): void {
         if (!self::$headers) {
             self::$headers = new HeaderCollection();
         }
     }
 
     public static function addHeader(string|Header $header): void {
-        self::init();
+        self::initHttpResourceAbstractClass();
         self::$headers->add($header);
     }
 
     public static function getHeaders(): HeaderCollection {
-        self::init();
+        self::initHttpResourceAbstractClass();
         return self::$headers;
     }
 
