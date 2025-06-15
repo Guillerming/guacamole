@@ -7,7 +7,6 @@ namespace Site\Router;
 use Guacamole\Router\RouteModel;
 use Guacamole\Router\Router;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
-use Site\Api\Test\Test;
 use Site\UI\Pages\Dashboard\DashboardPage;
 use Site\UI\Pages\Home\HomePage;
 
