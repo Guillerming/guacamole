@@ -1,15 +1,11 @@
 <template>
-  <h1>Hello World from Vue!</h1>
+  <nav>
+    <router-link to="/dashboard">Dashboard Home</router-link>
+    <router-link to="/dashboard/settings">Settings</router-link>
+  </nav>
+  <router-view />
 </template>
 
 <script setup lang="ts">
-// No logic needed for Hello World
+// No router logic here
 </script>
-
-<style scoped>
-h1 {
-  color: #42b983;
-  text-align: center;
-  margin-top: 2rem;
-}
-</style>

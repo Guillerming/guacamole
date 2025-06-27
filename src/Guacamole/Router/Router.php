@@ -7,6 +7,7 @@ namespace Guacamole\Router;
 use Guacamole\Helpers\UrlHelper;
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Response;
+use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
 class Router {
     /** @var RouteModel[] $routes */
@@ -16,9 +17,11 @@ class Router {
     private static ?RouteModel $route = null;
 
     /**
+     * Tries to find the registered route for the passed $path.
+     * 
      * @param string $path
      * 
-     * Tries to find the registered route for the passed $path.
+     * @return ?RouteModel
      */
     private static function findExactMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
@@ -30,9 +33,11 @@ class Router {
     }
 
     /**
+     * Tries to find the registered route for the passed $path.
+     * 
      * @param string $path
      * 
-     * Tries to find the registered route for the passed $path.
+     * @return ?RouteModel
      */
     private static function findDynamicMatch(string $path): ?RouteModel {
         $pathSegments = explode('/', trim($path, '/'));
@@ -68,6 +73,37 @@ class Router {
     }
 
     /**
+     * Tries to find a SPA route (Vue/React) whose path is a prefix of $path.
+     * If found, returns a RouteModel with params['spaPath'] (if subruta existe).
+     * 
+     * @param string $path
+     * 
+     * @return ?RouteModel
+     */
+    private static function findSpaMatch(string $path): ?RouteModel {
+        foreach (self::$routes as $route) {
+            if ($route->framework !== FrontendFrameworks::None) {
+                $base = rtrim($route->path, '/');
+                if ($path === $base || str_starts_with($path, $base.'/')) {
+                    $spaPath = ltrim(substr($path, strlen($base)), '/');
+                    $params = [];
+                    if ($spaPath !== '') {
+                        $params['spaPath'] = $spaPath;
+                    }
+                    return new RouteModel(
+                        method: $route->method,
+                        path: $route->path,
+                        controller: $route->controller,
+                        framework: $route->framework,
+                        params: $params
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Tries to find the registered route for the url $path.
      */
     private static function findOut(): RouteModel {
@@ -82,8 +118,12 @@ class Router {
             self::$route = $routeModel;
             return $routeModel;
         }
+        $routeModel = self::findSpaMatch($path);
+        if ($routeModel) {
+            self::$route = $routeModel;
+            return $routeModel;
+        }
 
-        // TODO: Subdirectories for SPAs (vue will control dashboard and dashboard/*)
         // TODO: 404, 410..
         // TODO: Redirections
         // TODO: Filter by method
