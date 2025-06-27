@@ -17,6 +17,14 @@ class Router {
     private static ?RouteModel $route = null;
 
     /**
+     * Checks if the current HTTP method matches the route's method.
+     */
+    private static function validateHttpMethod(RouteModel $route): bool {
+        $requestMethod = \Guacamole\Http\Request::getHttpMethod();
+        return strtoupper($route->method) === $requestMethod;
+    }
+
+    /**
      * Tries to find the registered route for the passed $path.
      * 
      * @param string $path
@@ -25,7 +33,7 @@ class Router {
      */
     private static function findExactMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
-            if ($route->path === $path) {
+            if ($route->path === $path && self::validateHttpMethod($route)) {
                 return $route;
             }
         }
@@ -59,7 +67,7 @@ class Router {
                     break;
                 }
             }
-            if ($matched) {
+            if ($matched && self::validateHttpMethod($route)) {
                 return new RouteModel(
                     method: $route->method,
                     path: $route->path,
@@ -85,6 +93,9 @@ class Router {
             if ($route->framework !== FrontendFrameworks::None) {
                 $base = rtrim($route->path, '/');
                 if ($path === $base || str_starts_with($path, $base.'/')) {
+                    if (!self::validateHttpMethod($route)) {
+                        continue;
+                    }
                     $spaPath = ltrim(substr($path, strlen($base)), '/');
                     $params = [];
                     if ($spaPath !== '') {
