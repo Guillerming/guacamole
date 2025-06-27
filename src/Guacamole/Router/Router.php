@@ -86,6 +86,7 @@ class Router {
         // TODO: Subdirectories for SPAs (vue will control dashboard and dashboard/*)
         // TODO: 404, 410..
         // TODO: Redirections
+        // TODO: Filter by method
 
         throw new \Exception("Route not found for path: {$path}");
     }
