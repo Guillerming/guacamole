@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Guacamole\Router;
 
+use Guacamole\Http\Enums\HttpMethods;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
 class RouteModel {
     /**
-     * @param string $method.
+     * @param HttpMethods $method.
      * @param string $path.
      * @param string $controller.
      * @param FrontendFrameworks $framework. Default FrontendFrameworks::None.
      * @param array<string,string> $params. Default [].
      */
     public function __construct(
-        public string $method,
+        public HttpMethods $method,
         public string $path,
         public string $controller,
         public FrontendFrameworks $framework = FrontendFrameworks::None,

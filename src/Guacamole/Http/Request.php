@@ -6,14 +6,18 @@ namespace Guacamole\Http;
 
 use Guacamole\Helpers\DataRequesterHelper;
 use Guacamole\Helpers\UrlHelper;
+use Guacamole\Http\Enums\HttpMethods;
 
 class Request {
     /**
      * Get the HTTP method of the current request (GET, POST, etc).
+     * 
+     * @return HttpMethods
      */
-    public static function getHttpMethod(): string {
+    public static function getHttpMethod(): HttpMethods {
         $method = DataRequesterHelper::getServerData('REQUEST_METHOD');
-        return $method ? strtoupper($method) : 'GET';
+        $method = HttpMethods::tryFrom($method);
+        return $method ? $method : HttpMethods::GET;
     }
 
     /**

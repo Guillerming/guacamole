@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Site\Router;
 
+use Guacamole\Http\Enums\HttpMethods;
 use Guacamole\Router\RouteModel;
 use Guacamole\Router\Router;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
@@ -16,7 +17,7 @@ class Routes {
     public static function home(): void {
         Router::register(
             new RouteModel(
-                method: 'GET',
+                method: HttpMethods::GET,
                 path: '/',
                 controller: HomePage::class,
                 framework: FrontendFrameworks::None,
@@ -25,7 +26,7 @@ class Routes {
 
         Router::register(
             new RouteModel(
-                method: 'GET',
+                method: HttpMethods::GET,
                 path: '/dynamic-route/:variable',
                 controller: DynamicPage::class,
                 framework: FrontendFrameworks::None,
@@ -36,7 +37,7 @@ class Routes {
     public static function dashboard(): void {
         Router::register(
             new RouteModel(
-                method: 'GET',
+                method: HttpMethods::GET,
                 path: '/dashboard',
                 controller: DashboardPage::class,
                 framework: FrontendFrameworks::Vue,

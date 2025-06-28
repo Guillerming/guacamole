@@ -6,6 +6,7 @@ namespace Guacamole\Router;
 
 use Guacamole\Helpers\UrlHelper;
 use Guacamole\Http\Abstract\EndpointModel;
+use Guacamole\Http\Request;
 use Guacamole\Http\Response;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
@@ -20,8 +21,8 @@ class Router {
      * Checks if the current HTTP method matches the route's method.
      */
     private static function validateHttpMethod(RouteModel $route): bool {
-        $requestMethod = \Guacamole\Http\Request::getHttpMethod();
-        return strtoupper($route->method) === $requestMethod;
+        $requestMethod = Request::getHttpMethod();
+        return $route->method === $requestMethod;
     }
 
     /**
@@ -137,7 +138,6 @@ class Router {
 
         // TODO: 404, 410..
         // TODO: Redirections
-        // TODO: Filter by method
 
         throw new \Exception("Route not found for path: {$path}");
     }
