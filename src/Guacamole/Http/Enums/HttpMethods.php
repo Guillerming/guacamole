@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Guacamole\Http\Enums;
 
 enum HttpMethods: string {

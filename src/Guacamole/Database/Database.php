@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Guacamole\Database;
 
 use Guacamole\Config\Env;
