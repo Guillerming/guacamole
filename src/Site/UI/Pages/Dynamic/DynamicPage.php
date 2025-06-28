@@ -9,7 +9,6 @@ use Guacamole\Router\RouteModel;
 use Guacamole\Router\Router;
 
 class DynamicPage extends PageModel {
-
     private static RouteModel $route;
 
     public function __construct() {
@@ -22,4 +21,4 @@ class DynamicPage extends PageModel {
             <p>Variable: <?php echo self::$route->getParam('variable'); ?></p>
         <?php } ?>
     <?php }
-}
+    }

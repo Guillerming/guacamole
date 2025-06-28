@@ -5,7 +5,10 @@
   "require": {
     "vlucas/phpdotenv": "^5.6"
   },
-  "scripts": {},
+  "scripts": {
+    "format": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php-cs-fixer.dist.php",
+    "lint": "vendor/bin/phpstan analyse --level=max src"
+  },
   "config": {
     "process-timeout": 0
   },

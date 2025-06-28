@@ -24,12 +24,17 @@ abstract class HttpResource {
 
     public static function addHeader(string|Header $header): void {
         self::initHttpResourceAbstractClass();
-        self::$headers->add($header);
+        if (self::$headers !== null) {
+            self::$headers->add($header);
+        }
     }
 
+    /**
+     */
     public static function getHeaders(): HeaderCollection {
         self::initHttpResourceAbstractClass();
-        return self::$headers;
+
+        return self::$headers ?? new HeaderCollection();
     }
 
     /**

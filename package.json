@@ -14,11 +14,12 @@
     "logs:nginx": "docker-compose -f docker-compose.dev.yml logs -f nginx",
     "lint": "npm run lint:php && npm run lint:js",
     "format": "npm run format:php && npm run format:js",
-    "lint:php": "vendor/bin/phpstan analyse --level=max src",
-    "format:php": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php-cs-fixer.dist.php",
+    "lint:php": "composer run lint",
+    "format:php": "composer run format",
     "lint:js": "eslint --ext .js,.ts,.vue src/",
     "format:js": "prettier --write \"src/**/*.{js,ts,vue}\"",
-    "build:spa": "vite build"
+    "build:spa": "vite build",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/node": "^22.15.22",

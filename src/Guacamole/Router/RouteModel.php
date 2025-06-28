@@ -9,11 +9,8 @@ use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
 class RouteModel {
     /**
-     * @param HttpMethods $method.
-     * @param string $path.
-     * @param string $controller.
-     * @param FrontendFrameworks $framework. Default FrontendFrameworks::None.
-     * @param array<string,string> $params. Default [].
+     * @param FrontendFrameworks   $framework. Default FrontendFrameworks::None.
+     * @param array<string,string> $params.    Default [].
      */
     public function __construct(
         public HttpMethods $method,
@@ -26,6 +23,8 @@ class RouteModel {
 
     /**
      * Returns all the params.
+     *
+     * @return array<string, string>
      */
     public function getParams(): array {
         return $this->params;
@@ -38,6 +37,7 @@ class RouteModel {
         if (!isset($this->params[$key])) {
             return null;
         }
+
         return $this->params[$key];
     }
 }

@@ -13,7 +13,6 @@ use Site\UI\Pages\Dynamic\DynamicPage;
 use Site\UI\Pages\Home\HomePage;
 
 class Routes {
-
     public static function home(): void {
         Router::register(
             new RouteModel(

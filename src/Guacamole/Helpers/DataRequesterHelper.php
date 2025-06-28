@@ -15,8 +15,6 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_SERVER, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getServerData(string $name): ?string {
         if (!isset($_SERVER[$name])) {
@@ -28,8 +26,6 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_REQUEST, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getRequestData(string $name): ?string {
         if (!isset($_REQUEST[$name])) {
@@ -41,8 +37,6 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_POST, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getPostData(string $name): ?string {
         if (!isset($_POST[$name])) {
@@ -54,8 +48,6 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_GET, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getGetData(string $name): ?string {
         if (!isset($_GET[$name])) {
@@ -67,8 +59,6 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_COOKIE, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getCookieData(string $name): ?string {
         if (!isset($_COOKIE[$name])) {
@@ -80,8 +70,8 @@ class DataRequesterHelper {
 
     /**
      * Get a value from $_FILES, sanitized (returns the file array or null).
-     * @param string $name
-     * @return array|null
+     *
+     * @return ?array<mixed, mixed>
      */
     public static function getFileData(string $name): ?array {
         if (!isset($_FILES[$name])) {
@@ -89,6 +79,10 @@ class DataRequesterHelper {
         }
 
         // No sanitization for files, just return the array
-        return $_FILES[$name];
+        if (is_array($_FILES[$name])) {
+            return $_FILES[$name];
+        }
+
+        return null;
     }
 }

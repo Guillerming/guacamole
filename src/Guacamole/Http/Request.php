@@ -12,11 +12,11 @@ class Request {
     /**
      * Get the HTTP method of the current request (GET, POST, etc).
      * 
-     * @return HttpMethods
      */
     public static function getHttpMethod(): HttpMethods {
         $method = DataRequesterHelper::getServerData('REQUEST_METHOD');
-        $method = HttpMethods::tryFrom($method);
+        $method = HttpMethods::tryFrom($method ?? '');
+
         return $method ? $method : HttpMethods::GET;
     }
 
@@ -29,8 +29,6 @@ class Request {
 
     /**
      * Get a query parameter from $_GET, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getQueryParam(string $name): ?string {
         return DataRequesterHelper::getGetData($name);
@@ -38,8 +36,6 @@ class Request {
 
     /**
      * Get a POST parameter from $_POST, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getPostParam(string $name): ?string {
         return DataRequesterHelper::getPostData($name);
@@ -47,8 +43,6 @@ class Request {
 
     /**
      * Get a cookie value from $_COOKIE, sanitized.
-     * @param string $name
-     * @return string|null
      */
     public static function getCookie(string $name): ?string {
         return DataRequesterHelper::getCookieData($name);
@@ -56,8 +50,8 @@ class Request {
 
     /**
      * Get a file from $_FILES (returns the file array or null).
-     * @param string $name
-     * @return array|null
+     *
+     * @return ?array<mixed>
      */
     public static function getFile(string $name): ?array {
         return DataRequesterHelper::getFileData($name);
@@ -65,28 +59,29 @@ class Request {
 
     /**
      * Get all HTTP request headers as an associative array.
-     * @return array<string, string>
+     *
+     * @return array<string>
      */
     public static function getAllHeaders(): array {
         $headers = [];
         foreach ($_SERVER as $name => $value) {
             if (str_starts_with($name, 'HTTP_')) {
                 $header = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
-                $headers[$header] = DataRequesterHelper::processData($value) ?? '';
+                $headers[$header] = (string)(DataRequesterHelper::processData($value) ?? '');
             }
         }
         if (function_exists('getallheaders')) {
             // Optionally merge with getallheaders() for completeness
             foreach (getallheaders() as $header => $value) {
-                $headers[$header] = DataRequesterHelper::processData($value) ?? '';
+                $headers[$header] = (string)(DataRequesterHelper::processData($value) ?? '');
             }
         }
+
         return $headers;
     }
 
     /**
      * Get the raw body of the HTTP request as a string.
-     * @return string
      */
     public static function getBody(): string {
         return file_get_contents('php://input') ?: '';
@@ -94,12 +89,12 @@ class Request {
 
     /**
      * Get the client IP address from the request.
-     * @return string|null
      */
     public static function getClientIP(): ?string {
         $ip = DataRequesterHelper::getServerData('HTTP_CLIENT_IP')
             ?? DataRequesterHelper::getServerData('HTTP_X_FORWARDED_FOR')
             ?? DataRequesterHelper::getServerData('REMOTE_ADDR');
+
         return $ip ?: null;
     }
 }

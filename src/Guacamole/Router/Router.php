@@ -22,15 +22,14 @@ class Router {
      */
     private static function validateHttpMethod(RouteModel $route): bool {
         $requestMethod = Request::getHttpMethod();
+
         return $route->method === $requestMethod;
     }
 
     /**
      * Tries to find the registered route for the passed $path.
      * 
-     * @param string $path
      * 
-     * @return ?RouteModel
      */
     private static function findExactMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
@@ -38,15 +37,14 @@ class Router {
                 return $route;
             }
         }
+
         return null;
     }
 
     /**
      * Tries to find the registered route for the passed $path.
      * 
-     * @param string $path
      * 
-     * @return ?RouteModel
      */
     private static function findDynamicMatch(string $path): ?RouteModel {
         $pathSegments = explode('/', trim($path, '/'));
@@ -78,6 +76,7 @@ class Router {
                 );
             }
         }
+
         return null;
     }
 
@@ -85,9 +84,7 @@ class Router {
      * Tries to find a SPA route (Vue/React) whose path is a prefix of $path.
      * If found, returns a RouteModel with params['spaPath'] (if subruta existe).
      * 
-     * @param string $path
      * 
-     * @return ?RouteModel
      */
     private static function findSpaMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
@@ -102,6 +99,7 @@ class Router {
                     if ($spaPath !== '') {
                         $params['spaPath'] = $spaPath;
                     }
+
                     return new RouteModel(
                         method: $route->method,
                         path: $route->path,
@@ -112,6 +110,7 @@ class Router {
                 }
             }
         }
+
         return null;
     }
 
@@ -123,16 +122,19 @@ class Router {
         $routeModel = self::findExactMatch($path);
         if ($routeModel) {
             self::$route = $routeModel;
+
             return $routeModel;
         }
         $routeModel = self::findDynamicMatch($path);
         if ($routeModel) {
             self::$route = $routeModel;
+
             return $routeModel;
         }
         $routeModel = self::findSpaMatch($path);
         if ($routeModel) {
             self::$route = $routeModel;
+
             return $routeModel;
         }
 
@@ -143,7 +145,7 @@ class Router {
     }
 
     /**
-     * @param Routemodel $route.
+     * @param RouteModel $route.
      * 
      * Registers a route in the system.
      */
@@ -158,6 +160,7 @@ class Router {
         if (!self::$route) {
             return self::findOut();
         }
+
         return self::$route;
     }
 
