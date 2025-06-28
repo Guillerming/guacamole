@@ -171,12 +171,14 @@ class Router {
     public static function load(): void {
         $route = self::findOut();
         new $route->controller();
+        // TODO: layout handler
         // TODO: Headers and middlewares
         if (is_subclass_of($route->controller, EndpointModel::class)) {
             /** @var Response $response */
             $response = $route->controller::response();
             echo $response->print();
         } else {
+            $route->controller::includeAssets();
             $route->controller::html();
         }
     }

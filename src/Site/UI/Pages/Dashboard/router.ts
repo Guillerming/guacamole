@@ -4,10 +4,10 @@ import Settings from './Settings.vue';
 
 const routes = [
   { path: '/dashboard', component: Home },
-  { path: '/dashboard/settings', component: Settings }
+  { path: '/dashboard/settings', component: Settings },
 ];
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });

@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -13,9 +13,21 @@
     "baseUrl": ".",
     "types": ["vite/client"]
   },
+  "typeRoots": [
+    "./node_modules/@types",
+    "./node_modules/rollup/dist"
+  ],
   "include": [
     "dist/Site/UI/**/*.ts",
     "dist/Site/UI/**/*.d.ts",
-    "dist/Site/UI/**/*.vue"
-  ]
+    "dist/Site/UI/**/*.vue",
+    "src/Site/UI/**/*.ts",
+    "src/Site/UI/**/*.d.ts",
+    "src/Site/UI/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules/vite/dist/node/index.d.ts",
+    "node_modules/rollup/dist/parseAst.d.ts"
+  ],
+  "skipLibCheck": true
 }

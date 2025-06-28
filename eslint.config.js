@@ -3,6 +3,7 @@ import vue from 'eslint-plugin-vue';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import vueParser from 'vue-eslint-parser';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
@@ -23,15 +24,37 @@ export default [
     },
   },
   {
+    files: ['src/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'module',
+      globals: globals.browser,
+    },
+  },
+  {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 2021,
       sourceType: 'module',
+      globals: globals.browser,
     },
     plugins: { '@typescript-eslint': tseslint },
     rules: {
       ...tseslint.configs.recommended.rules,
+    },
+  },
+  {
+    files: ['gulp/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2021,
+      sourceType: 'module',
+      globals: {
+        process: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+      },
     },
   },
   {
