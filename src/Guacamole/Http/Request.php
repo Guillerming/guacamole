@@ -27,9 +27,79 @@ class Request {
         return UrlHelper::getPath();
     }
 
-    // Puedes añadir más métodos útiles aquí, por ejemplo:
-    // public static function getQueryParam(string $name): ?string { ... }
-    // public static function getAllHeaders(): array { ... }
-    // public static function getBody(): string { ... }
-    // public static function getClientIp(): string { ... }
+    /**
+     * Get a query parameter from $_GET, sanitized.
+     * @param string $name
+     * @return string|null
+     */
+    public static function getQueryParam(string $name): ?string {
+        return DataRequesterHelper::getGetData($name);
+    }
+
+    /**
+     * Get a POST parameter from $_POST, sanitized.
+     * @param string $name
+     * @return string|null
+     */
+    public static function getPostParam(string $name): ?string {
+        return DataRequesterHelper::getPostData($name);
+    }
+
+    /**
+     * Get a cookie value from $_COOKIE, sanitized.
+     * @param string $name
+     * @return string|null
+     */
+    public static function getCookie(string $name): ?string {
+        return DataRequesterHelper::getCookieData($name);
+    }
+
+    /**
+     * Get a file from $_FILES (returns the file array or null).
+     * @param string $name
+     * @return array|null
+     */
+    public static function getFile(string $name): ?array {
+        return DataRequesterHelper::getFileData($name);
+    }
+
+    /**
+     * Get all HTTP request headers as an associative array.
+     * @return array<string, string>
+     */
+    public static function getAllHeaders(): array {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (str_starts_with($name, 'HTTP_')) {
+                $header = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
+                $headers[$header] = DataRequesterHelper::processData($value) ?? '';
+            }
+        }
+        if (function_exists('getallheaders')) {
+            // Optionally merge with getallheaders() for completeness
+            foreach (getallheaders() as $header => $value) {
+                $headers[$header] = DataRequesterHelper::processData($value) ?? '';
+            }
+        }
+        return $headers;
+    }
+
+    /**
+     * Get the raw body of the HTTP request as a string.
+     * @return string
+     */
+    public static function getBody(): string {
+        return file_get_contents('php://input') ?: '';
+    }
+
+    /**
+     * Get the client IP address from the request.
+     * @return string|null
+     */
+    public static function getClientIP(): ?string {
+        $ip = DataRequesterHelper::getServerData('HTTP_CLIENT_IP')
+            ?? DataRequesterHelper::getServerData('HTTP_X_FORWARDED_FOR')
+            ?? DataRequesterHelper::getServerData('REMOTE_ADDR');
+        return $ip ?: null;
+    }
 }
