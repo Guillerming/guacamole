@@ -8,6 +8,8 @@ use Guacamole\Helpers\DirHelper;
 use Guacamole\UI\HeadData;
 
 abstract class PageModel extends HttpResource {
+    abstract public function __construct();
+
     abstract public static function html(): void;
 
     /**

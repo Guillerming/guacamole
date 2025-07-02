@@ -8,7 +8,6 @@ use Guacamole\Helpers\UrlHelper;
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Http\Request;
-use Guacamole\Http\Response;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
 class Router {
@@ -165,32 +164,42 @@ class Router {
         return self::$route;
     }
 
-    public static function isEndpoint(EndpointModel $endpointModel): void {
-        /** @var Response $response */
-        $response = $endpointModel::response();
-        echo $response->print();
+    private static function isEndpoint(EndpointModel $endpointModel): void {
+        echo $endpointModel::response()->print();
+    }
+
+    private static function isPage(PageModel $pageModel): void {
+        $layoutModel = $pageModel::useLayout();
+        $layoutModel->html(
+            pageModel: $pageModel,
+        );
     }
 
     /**
      * Loads the controller associated to the current url path.
      * Runs the associated Headers and Middlewares.
+     * Loads required resources such as layout.
+     * Sends headers.
+     * Wraps it all on a buffer to control output time.
      */
     public static function load(): void {
         $route = self::findOut();
+
+        ob_start();
+
         /** @var PageModel|EndpointModel $pageModel */
         $pageModel = new $route->controller();
 
-        // TODO: Headers and middlewares
+        // TODO: Middlewares
 
         if ($pageModel instanceof EndpointModel) {
             self::isEndpoint($pageModel);
-
-            return;
+        } else {
+            self::isPage($pageModel);
         }
 
-        $layoutModel = $pageModel::useLayout();
-        $layoutModel->html(
-            pageModel: $pageModel,
-        );
+        $pageModel->getHeaders()->send();
+
+        ob_end_flush();
     }
 }

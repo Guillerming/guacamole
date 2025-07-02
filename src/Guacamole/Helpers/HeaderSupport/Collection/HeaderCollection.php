@@ -26,4 +26,13 @@ class HeaderCollection {
 
         return $this;
     }
+
+    public function send(): void {
+        if (headers_sent()) {
+            return;
+        }
+        foreach ($this->headers as $header) {
+            header($header);
+        }
+    }
 }

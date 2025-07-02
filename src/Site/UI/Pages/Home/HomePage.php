@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Site\UI\Pages\Home;
 
+use Guacamole\Helpers\HeaderSupport\Enum\Header;
 use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\UI\HeadData;
@@ -11,6 +12,10 @@ use Guacamole\UI\OpenGraphData;
 use Site\UI\Layouts\Web;
 
 class HomePage extends PageModel {
+    public function __construct() {
+        self::addHeader(Header::ContentTypeTextHtml);
+    }
+
     public static function useLayout(): LayoutModel {
         return new Web();
     }
