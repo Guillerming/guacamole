@@ -8,6 +8,7 @@ use Guacamole\Helpers\UrlHelper;
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Http\Request;
+use Guacamole\Middleware\Abstract\MiddlewareModel;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
 
 class Router {
@@ -187,10 +188,21 @@ class Router {
 
         ob_start();
 
-        /** @var PageModel|EndpointModel $pageModel */
         $pageModel = new $route->controller();
+        assert($pageModel instanceof PageModel || $pageModel instanceof EndpointModel);
 
-        // TODO: Middlewares
+        $middlewares = $pageModel->getMiddlewares();
+        foreach ($middlewares as $middleware) {
+            $middlewareHandler = new $middleware();
+            assert($middlewareHandler instanceof MiddlewareModel);
+            $response = $middlewareHandler::run($pageModel);
+            if ($response !== null) {
+                echo $response->print();
+                ob_end_flush();
+
+                return;
+            }
+        }
 
         if ($pageModel instanceof EndpointModel) {
             self::isEndpoint($pageModel);

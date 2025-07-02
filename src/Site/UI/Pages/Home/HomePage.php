@@ -9,11 +9,13 @@ use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\UI\HeadData;
 use Guacamole\UI\OpenGraphData;
+use Site\Middlewares\AuthMiddleware;
 use Site\UI\Layouts\Web;
 
 class HomePage extends PageModel {
     public function __construct() {
         self::addHeader(Header::ContentTypeTextHtml);
+        self::addMiddleware(AuthMiddleware::class);
     }
 
     public static function useLayout(): LayoutModel {
