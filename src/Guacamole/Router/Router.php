@@ -139,10 +139,22 @@ class Router {
             return $routeModel;
         }
 
-        // TODO: 404, 410..
-        // TODO: Redirections
+        // 404 fallback: load NotFound page
+        $notFoundClass = 'Site\\UI\\Pages\\NotFound\\NotFound';
+        if (class_exists($notFoundClass)) {
+            $notFoundRoute = new RouteModel(
+                method: Request::getHttpMethod(),
+                path: $path,
+                controller: $notFoundClass,
+                framework: FrontendFrameworks::None,
+                params: []
+            );
+            self::$route = $notFoundRoute;
 
-        throw new \Exception("Route not found for path: {$path}");
+            return $notFoundRoute;
+        }
+
+        throw new \Exception("Route not found for path: {$path} and NotFound page not defined");
     }
 
     /**
