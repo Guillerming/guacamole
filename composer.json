@@ -3,7 +3,8 @@
   "description": "Modern php strict typed non-opinionated framework",
   "type": "project",
   "require": {
-    "vlucas/phpdotenv": "^5.6"
+    "vlucas/phpdotenv": "^5.6",
+    "google/apiclient": "^2.18"
   },
   "scripts": {
     "format": "git diff --cached --name-only --diff-filter=ACM | grep '\\.php$' | xargs -r -I{} sh -c 'PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php-cs-fixer.dist.php \"{}\"'",
