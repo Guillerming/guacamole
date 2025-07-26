@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Site\UI\Layouts;
+namespace Guacamole\UI\Layouts;
 
 use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;

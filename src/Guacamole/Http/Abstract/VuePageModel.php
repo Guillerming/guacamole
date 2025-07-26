@@ -6,7 +6,7 @@ namespace Guacamole\Http\Abstract;
 
 use Guacamole\Helpers\DirHelper;
 use Guacamole\UI\HeadData;
-use Site\UI\Layouts\Spa;
+use Guacamole\UI\Layouts\Spa;
 
 abstract class VuePageModel extends PageModel {
     /**
