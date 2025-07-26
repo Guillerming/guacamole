@@ -158,12 +158,14 @@ class Router {
     }
 
     /**
-     * @param RouteModel $route.
+     * @param RouteModel ...$routes.
      * 
      * Registers a route in the system.
      */
-    public static function register(RouteModel $route): void {
-        self::$routes[] = $route;
+    public static function register(RouteModel ...$routes): void {
+        foreach ($routes as $route) {
+            self::$routes[] = $route;
+        }
     }
 
     /**
@@ -178,7 +180,7 @@ class Router {
     }
 
     private static function isEndpoint(EndpointModel $endpointModel): void {
-        echo $endpointModel::response()->print();
+        echo $endpointModel::response(endpointModel: $endpointModel)->print();
     }
 
     private static function isPage(PageModel $pageModel): void {
