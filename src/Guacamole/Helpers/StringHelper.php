@@ -16,7 +16,8 @@ class StringHelper {
     public static function mergeSlashes(string $string): string {
         $string = preg_replace('#/+#', '/', $string) ?: $string;
 
-        $string = str_replace('http:/', 'https://', $string);
+        $string = str_replace('http:/', 'http://', $string);
+        $string = str_replace('https:/', 'https://', $string);
 
         return $string;
     }
