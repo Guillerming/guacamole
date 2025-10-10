@@ -29,8 +29,6 @@ class Router {
 
     /**
      * Tries to find the registered route for the passed $path.
-     * 
-     * 
      */
     private static function findExactMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
@@ -44,8 +42,6 @@ class Router {
 
     /**
      * Tries to find the registered route for the passed $path.
-     * 
-     * 
      */
     private static function findDynamicMatch(string $path): ?RouteModel {
         $pathSegments = explode('/', trim($path, '/'));
@@ -84,8 +80,6 @@ class Router {
     /**
      * Tries to find a SPA route (Vue/React) whose path is a prefix of $path.
      * If found, returns a RouteModel with params['spaPath'] (if subruta existe).
-     * 
-     * 
      */
     private static function findSpaMatch(string $path): ?RouteModel {
         foreach (self::$routes as $route) {
