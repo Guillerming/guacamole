@@ -36,7 +36,7 @@ cp .env.example .env
 ```
 3.  Install dependencies and initialize the project (this will also install git hooks and start the containers):
 ```
-npm run initial
+npm run setup
 ```
 
 

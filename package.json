@@ -4,11 +4,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "initial": "composer install & npm i && npm run certificates && (npm run dev:php:build & npm run dev:spa)",
+    "setup": "composer install && npm i && npm run certificates && npm run dev:php:build",
     "certificates": "./generate-certs.sh",
     "dev": "npm run dev:php & npm run dev:spa",
     "dev:php": "composer dump-autoload && docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up",
-    "dev:php:build": "composer dump-autoload && docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up --build",
+    "dev:php:build": "composer dump-autoload && docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up --build -d",
     "dev:spa": "gulp --gulpfile ./gulp/gulpfile.js watch",
     "logs:php": "docker-compose -f docker-compose.dev.yml logs -f php",
     "logs:nginx": "docker-compose -f docker-compose.dev.yml logs -f nginx",
