@@ -2,7 +2,7 @@
 
 Guacamole is a modern, containerized PHP8.4 + Vue|React framework.
 
-It is built with PHP 8.4 (FPM), Nginx, and PostgreSQL, and it can integrate a TypeScript-based SPA (React or Vue).
+It is built with PHP 8.4 (FPM), Nginx, and PostgreSQL, and it can (or not) integrate a TypeScript-based SPA (React or Vue).
 
 The core idea behind this approach is to offer a stable as muchas non-opinionated way to do stuff while enforcing strict types across different languages.
 
@@ -43,7 +43,7 @@ npm run setup
 ### Usage
 
 *   Run `npm run dev` at the project root dir
-*   Access the app at: https://localhost:8443
+*   Access the app at: https://localhost:{YOUR_HTTPS_PORT_IN_ENV}
 
 ### Git Hooks
 
