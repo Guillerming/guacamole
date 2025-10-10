@@ -10,7 +10,14 @@ use Guacamole\Http\Response;
 use Guacamole\Middleware\Abstract\MiddlewareModel;
 
 class AuthMiddleware extends MiddlewareModel {
-    private static function isEndpoint(): Response {
+    private static bool $forceNotLoggedIn = false; // TODO: Delete after testing
+
+    private static function isEndpoint(): ?Response {
+        // TODO: Create the actual conditions
+        if (!self::$forceNotLoggedIn) {
+            return null;
+        }
+
         return new Response(
             status: 401,
             message: 'Unauthorized access',
@@ -18,8 +25,13 @@ class AuthMiddleware extends MiddlewareModel {
         );
     }
 
-    private static function isPage(): Response {
-        return Response::redirect('/login');
+    private static function isPage(): ?Response {
+        // TODO: Create the actual conditions
+        if (!self::$forceNotLoggedIn) {
+            return null;
+        }
+
+        return Response::redirect('/auth/login');
     }
 
     public static function run(HttpResource $page): ?Response {

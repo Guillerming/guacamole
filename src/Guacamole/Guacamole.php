@@ -12,4 +12,4 @@ if (file_exists(dirname(__DIR__, 2) . '/.env')) {
     $dotenv->load();
 }
 
-Database::connect();
+// Database::connect();
