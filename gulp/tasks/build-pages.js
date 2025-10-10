@@ -42,7 +42,7 @@ async function cleanPages() {
 function buildTS(pageDir, page) {
   return src(`${pageDir}/*.ts`)
     .pipe(sourcemaps.init())
-    .pipe(ts.createProject('../../../../tsconfig.json')())
+    .pipe(ts.createProject(`${process.cwd()}/../tsconfig.json`)())
     .pipe(hashFile())
     .pipe(sourcemaps.write('.'))
     .pipe(dest(`${PAGES_DIST}${page}/`));
