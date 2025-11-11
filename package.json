@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "setup": "composer install && npm i && npm run certificates && npm run dev:php:build",
+    "setup": "composer install && npm i && npm run certificates && npm run dev:php:build && php guacamole migrations init",
     "certificates": "./generate-certs.sh",
     "dev": "npm run dev:php & npm run dev:spa",
     "dev:php": "composer dump-autoload && docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up",

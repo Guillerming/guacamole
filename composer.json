@@ -22,7 +22,8 @@
       "Timecentric\\": [
         "src/Timecentric/",
         "dist/Timecentric/"
-      ]
+      ],
+      "Console\\": "Console/"
     }
   },
   "require-dev": {
