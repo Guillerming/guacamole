@@ -24,11 +24,11 @@ class HomePage extends PageModel {
 
     public static function getHeadData(): HeadData {
         return new HeadData(
-            htmlTitle: 'Home page',
-            htmlDescription: 'The business of the history',
+            htmlTitle: 'TimeCentric',
+            htmlDescription: 'Log your activities',
             og: new OpenGraphData(
-                title: 'The bizz',
-                description: 'Awesome biz',
+                title: 'Time register your activities',
+                description: 'TimeCentric allows for time logging and analysis',
             ),
         );
     }
@@ -40,6 +40,6 @@ class HomePage extends PageModel {
     }
 
     public static function html(): void { ?>
-        <h1>Home Page</h1>
+        <h1>TimeCentric</h1>
     <?php }
     }

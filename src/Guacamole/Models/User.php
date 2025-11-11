@@ -5,30 +5,15 @@ declare(strict_types=1);
 namespace Guacamole\Models;
 
 final class User {
-    private int $id;
-    private string $name;
-    private string $email;
-    private ?string $googleId;
-    private ?string $avatar;
-    private bool $isEnabled;
-    private ?string $subscriptionStatus;
-
     public function __construct(
-        int $id,
-        string $name,
-        string $email,
-        ?string $googleId = null,
-        ?string $avatar = null,
-        bool $isEnabled = true,
-        ?string $subscriptionStatus = null
+        private int $id,
+        private string $name,
+        private string $email,
+        private ?string $googleId = null,
+        private ?string $avatar = null,
+        private bool $isEnabled = true,
+        private ?string $subscriptionStatus = null
     ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->email = $email;
-        $this->googleId = $googleId;
-        $this->avatar = $avatar;
-        $this->isEnabled = $isEnabled;
-        $this->subscriptionStatus = $subscriptionStatus;
     }
 
     public function getId(): int {
