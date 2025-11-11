@@ -10,7 +10,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-const PAGES_SRC = '../../src/Site/UI/Pages';
+const PAGES_SRC = '../../src/Timecentric/UI/Pages';
 const PAGES_DIST = '../dist/public/assets/pages/';
 
 function isSpaProject(pageDir) {

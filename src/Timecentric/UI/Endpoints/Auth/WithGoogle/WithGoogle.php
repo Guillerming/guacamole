@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Site\UI\Endpoints\Auth\WithGoogle;
+namespace Timecentric\UI\Endpoints\Auth\WithGoogle;
 
 use Guacamole\Helpers\DataRequesterHelper;
 use Guacamole\Http\Abstract\EndpointModel;

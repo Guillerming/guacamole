@@ -134,7 +134,7 @@ class Router {
         }
 
         // 404 fallback: load NotFound page
-        $notFoundClass = 'Site\\UI\\Pages\\NotFound\\NotFound';
+        $notFoundClass = 'Timecentric\\UI\\Pages\\NotFound\\NotFound';
         if (class_exists($notFoundClass)) {
             $notFoundRoute = new RouteModel(
                 method: Request::getHttpMethod(),

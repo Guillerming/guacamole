@@ -13,7 +13,7 @@ export interface SpaConfig {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const projectName = 'Site';
+const projectName = 'Timecentric';
 const rootDir = resolve(__dirname, '../../');
 const UIDir = join(rootDir, projectName, 'UI');
 

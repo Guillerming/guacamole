@@ -1,25 +1,25 @@
 services:
-  guacamole-php:
-    container_name: guacamole-php
-    image: guacamole-php:latest
+  timecentric-php:
+    container_name: timecentric-php
+    image: timecentric-php:latest
     labels:
-      - "project=guacamole"
+      - "project=timecentric"
       - "service=php"
     build:
       context: .
       dockerfile: Dockerfile.prod
     depends_on:
-      - guacamole-db
+      - timecentric-db
     environment:
       POSTGRES_NAME: ${POSTGRES_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: ${POSTGRES_HOST}
-  guacamole-nginx:
-    container_name: guacamole-nginx
+  timecentric-nginx:
+    container_name: timecentric-nginx
     image: nginx:latest
     labels:
-      - "project=guacamole"
+      - "project=timecentric"
       - "service=nginx"
     ports:
       - "${HTTPS_PORT:-8443}:443"
@@ -27,12 +27,12 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./certs:/etc/nginx/certs:ro
     depends_on:
-      - guacamole-php
-  guacamole-db:
-    container_name: guacamole-db
+      - timecentric-php
+  timecentric-db:
+    container_name: timecentric-db
     image: postgres:16
     labels:
-      - "project=guacamole"
+      - "project=timecentric"
       - "service=database"
     environment:
       POSTGRES_NAME: ${POSTGRES_NAME}

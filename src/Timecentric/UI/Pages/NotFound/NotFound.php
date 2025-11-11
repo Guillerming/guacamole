@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Site\UI\Pages\NotFound;
+namespace Timecentric\UI\Pages\NotFound;
 
 use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\UI\HeadData;
-use Site\UI\Layouts\Web;
+use Timecentric\UI\Layouts\Web;
 
 class NotFound extends PageModel {
     public function __construct() {

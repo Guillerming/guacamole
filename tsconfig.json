@@ -18,12 +18,12 @@
     "./node_modules/rollup/dist"
   ],
   "include": [
-    "dist/Site/UI/**/*.ts",
-    "dist/Site/UI/**/*.d.ts",
-    "dist/Site/UI/**/*.vue",
-    "src/Site/UI/**/*.ts",
-    "src/Site/UI/**/*.d.ts",
-    "src/Site/UI/**/*.vue"
+    "dist/Timecentric/UI/**/*.ts",
+    "dist/Timecentric/UI/**/*.d.ts",
+    "dist/Timecentric/UI/**/*.vue",
+    "src/Timecentric/UI/**/*.ts",
+    "src/Timecentric/UI/**/*.d.ts",
+    "src/Timecentric/UI/**/*.vue"
   ],
   "exclude": [
     "node_modules/vite/dist/node/index.d.ts",

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Site\Middlewares;
+namespace Timecentric\Middlewares;
 
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Abstract\HttpResource;

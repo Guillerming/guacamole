@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Site;
+namespace Timecentric;
 
 use Guacamole\Router\Router;
-use Site\Router\Routes;
+use Timecentric\Router\Routes;
 
 Routes::home();
 Routes::auth();

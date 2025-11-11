@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Site\Router;
+namespace Timecentric\Router;
 
 use Guacamole\Http\Enums\HttpMethods;
 use Guacamole\Router\RouteModel;
 use Guacamole\Router\Router;
 use Guacamole\Router\RouterSupport\Enums\FrontendFrameworks;
-use Site\UI\Endpoints\Auth\WithGoogle\WithGoogle;
-use Site\UI\Pages\Auth\Login\LoginPage;
-use Site\UI\Pages\Dashboard\DashboardPage;
-use Site\UI\Pages\Dynamic\DynamicPage;
-use Site\UI\Pages\Home\HomePage;
+use Timecentric\UI\Endpoints\Auth\WithGoogle\WithGoogle;
+use Timecentric\UI\Pages\Auth\Login\LoginPage;
+use Timecentric\UI\Pages\Dashboard\DashboardPage;
+use Timecentric\UI\Pages\Dynamic\DynamicPage;
+use Timecentric\UI\Pages\Home\HomePage;
 
 class Routes {
     public static function home(): void {

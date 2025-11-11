@@ -38,6 +38,6 @@ class DirHelper {
     public static function project(string $append = '/'): string {
         self::init();
 
-        return StringHelper::mergeSlashes(rtrim(self::$root."/dist/Site{$append}", '/'));
+        return StringHelper::mergeSlashes(rtrim(self::$root."/dist/Timecentric{$append}", '/'));
     }
 }

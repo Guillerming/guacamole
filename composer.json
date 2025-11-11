@@ -1,5 +1,5 @@
 {
-  "name": "guillerming/guacamole",
+  "name": "guillerming/timecentric",
   "description": "Modern php strict typed non-opinionated framework",
   "type": "project",
   "require": {
@@ -19,9 +19,9 @@
         "src/Guacamole/",
         "dist/Guacamole/"
       ],
-      "Site\\": [
-        "src/Site/",
-        "dist/Site/"
+      "Timecentric\\": [
+        "src/Timecentric/",
+        "dist/Timecentric/"
       ]
     }
   },

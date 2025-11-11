@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Site\UI\Pages\Auth\Login;
+namespace Timecentric\UI\Pages\Auth\Login;
 
 use Guacamole\Config\AppConfig;
 use Guacamole\Config\Env;
@@ -10,7 +10,7 @@ use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Models\Url;
 use Guacamole\UI\HeadData;
-use Site\UI\Layouts\Web;
+use Timecentric\UI\Layouts\Web;
 
 class LoginPage extends PageModel {
     public function __construct() {

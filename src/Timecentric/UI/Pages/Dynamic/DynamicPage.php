@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Site\UI\Pages\Dynamic;
+namespace Timecentric\UI\Pages\Dynamic;
 
 use Guacamole\Helpers\HeaderSupport\Enum\Header;
 use Guacamole\Http\Abstract\LayoutModel;
@@ -10,7 +10,7 @@ use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Router\RouteModel;
 use Guacamole\Router\Router;
 use Guacamole\UI\HeadData;
-use Site\UI\Layouts\Web;
+use Timecentric\UI\Layouts\Web;
 
 class DynamicPage extends PageModel {
     private static RouteModel $route;
