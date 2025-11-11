@@ -10,6 +10,7 @@ use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Models\Url;
 use Guacamole\UI\HeadData;
+use Timecentric\Router\RouteIds;
 use Timecentric\UI\Layouts\Web;
 
 class LoginPage extends PageModel {
@@ -50,9 +51,9 @@ class LoginPage extends PageModel {
             path: '/o/oauth2/v2/auth',
             params: [
                 'client_id' => Env::get('GOOGLE_OAUTH_CLIENT_ID'),
-                'redirect_uri' => AppConfig::baseUrl('/auth/google/callback'),
+                'redirect_uri' => AppConfig::baseUrl(RouteIds::LoginCallback->value),
                 'response_type' => 'code',
-                'scope' => 'openid%20email%20profile',
+                'scope' => 'openid email profile',
                 'state' => $state,
             ]
         );

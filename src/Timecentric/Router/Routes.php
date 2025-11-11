@@ -19,7 +19,7 @@ class Routes {
         Router::register(
             new RouteModel(
                 method: HttpMethods::GET,
-                path: '/',
+                path: RouteIds::Home->value,
                 controller: HomePage::class,
                 framework: FrontendFrameworks::None,
             )
@@ -28,7 +28,7 @@ class Routes {
         Router::register(
             new RouteModel(
                 method: HttpMethods::GET,
-                path: '/dynamic-route/:variable',
+                path: RouteIds::DynamicRoute->value,
                 controller: DynamicPage::class,
                 framework: FrontendFrameworks::None,
             )
@@ -39,13 +39,13 @@ class Routes {
         Router::register(
             new RouteModel(
                 method: HttpMethods::GET,
-                path: '/auth/login',
+                path: RouteIds::Login->value,
                 controller: LoginPage::class,
                 framework: FrontendFrameworks::None,
             ),
             new RouteModel(
                 method: HttpMethods::GET,
-                path: '/auth/google/callback',
+                path: RouteIds::LoginCallback->value,
                 controller: WithGoogle::class,
                 framework: FrontendFrameworks::None,
                 params: [
@@ -59,7 +59,7 @@ class Routes {
         Router::register(
             new RouteModel(
                 method: HttpMethods::GET,
-                path: '/dashboard',
+                path: RouteIds::Dashboard->value,
                 controller: DashboardPage::class,
                 framework: FrontendFrameworks::Vue,
             )

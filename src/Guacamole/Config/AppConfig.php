@@ -8,9 +8,14 @@ use Guacamole\Helpers\StringHelper;
 
 class AppConfig {
     static function baseUrl(?string $append = null): string {
-        $httpsPort = Env::get('HTTPS_PORT');
-        assert(gettype($httpsPort) == 'string');
-        $baseUrl = 'https://localhost:'.$httpsPort;
+        $port = Env::get('HTTPS_PORT');
+        assert(gettype($port) == 'string');
+        if (strlen($port)) {
+            $port = ":{$port}";
+        }
+        $hostname = Env::get('HTTPS_HOSTNAME');
+        assert(gettype($hostname) == 'string');
+        $baseUrl = "https://{$hostname}{$port}/";
         if ($append) {
             $baseUrl .= $append;
         }

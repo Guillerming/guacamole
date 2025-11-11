@@ -7,6 +7,7 @@ namespace Timecentric\UI\Endpoints\Auth\WithGoogle;
 use Guacamole\Helpers\DataRequesterHelper;
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Response;
+use Timecentric\Router\RouteIds;
 
 class WithGoogle extends EndpointModel {
     public static function response(EndpointModel $endpointModel): Response {
@@ -21,6 +22,6 @@ class WithGoogle extends EndpointModel {
                 'authuser' => DataRequesterHelper::getGetData('authuser'),
                 'prompt' => DataRequesterHelper::getGetData('prompt'),
             ]
-        );
+        )->redirect(RouteIds::Dashboard->value);
     }
 }
