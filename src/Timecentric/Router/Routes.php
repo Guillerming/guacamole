@@ -12,9 +12,35 @@ use Timecentric\UI\Endpoints\Auth\WithGoogle\WithGoogle;
 use Timecentric\UI\Pages\Auth\Login\LoginPage;
 use Timecentric\UI\Pages\Dashboard\DashboardPage;
 use Timecentric\UI\Pages\Dynamic\DynamicPage;
+use Timecentric\UI\Pages\Error\BadRequest\BadRequest;
+use Timecentric\UI\Pages\Error\ServerError\ServerError;
 use Timecentric\UI\Pages\Home\HomePage;
+use Timecentric\UI\Pages\NotFound\NotFound;
 
 class Routes {
+    public static function errors(): void {
+        Router::register(
+            new RouteModel(
+                method: HttpMethods::GET,
+                path: RouteIds::NotFound->value,
+                controller: NotFound::class,
+                framework: FrontendFrameworks::None,
+            ),
+            new RouteModel(
+                method: HttpMethods::GET,
+                path: RouteIds::BadRequest->value,
+                controller: BadRequest::class,
+                framework: FrontendFrameworks::None,
+            ),
+            new RouteModel(
+                method: HttpMethods::GET,
+                path: RouteIds::ServerError->value,
+                controller: ServerError::class,
+                framework: FrontendFrameworks::None,
+            ),
+        );
+    }
+
     public static function home(): void {
         Router::register(
             new RouteModel(
