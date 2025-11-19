@@ -4,25 +4,35 @@ declare(strict_types=1);
 
 namespace Guacamole\Config;
 
-use Guacamole\Helpers\StringHelper;
+use Guacamole\Models\Url;
 
 class AppConfig {
-    static function baseUrl(?string $append = null): string {
-        $port = Env::get('HTTPS_PORT');
-        assert(gettype($port) == 'string');
-        if (strlen($port)) {
-            $port = ":{$port}";
-        }
-        $hostname = Env::get('HTTPS_HOSTNAME');
-        assert(gettype($hostname) == 'string');
-        $baseUrl = "https://{$hostname}{$port}/";
-        if ($append) {
-            $baseUrl .= $append;
-        }
-
-        return StringHelper::mergeSlashes($baseUrl);
-    }
-
     const GuacamoleVersion = '0.0.0-rc1';
     const ProjectVersion = '0.0.0';
+
+    /**
+     * 
+     * @param ?string             $append. Default null.
+     * @param array<string,mixed> $params. Default [].
+     */
+    static function baseUrl(?string $append = null, array $params = []): Url {
+        $port = Env::get('HTTPS_PORT');
+        if (gettype($port) != 'string') {
+            $port = null;
+        }
+        $port = (int) $port;
+
+        $hostname = Env::get('HTTPS_HOSTNAME');
+        assert(gettype($hostname) == 'string');
+
+        $url = new Url(
+            protocol: 'https',
+            hostname: $hostname,
+            port: $port,
+            path: $append,
+            params: $params
+        );
+
+        return $url;
+    }
 }
