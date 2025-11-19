@@ -7,7 +7,12 @@ try {
     require_once __DIR__ . '/../Guacamole/Guacamole.php';
     require_once __DIR__ . '/../Timecentric/Bootstrap.php';
 } catch (Throwable $th) {
-    echo json_encode([
-        'error' => $th->getMessage(), // TODO: Prevent leaks!
-    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $stream = fopen('php://stderr', 'w');
+    assert(gettype($stream) == 'resource');
+    fwrite($stream, $th->getMessage()."\n"); ?>
+
+        <h1>500 - Fatal Error</h1>
+        <p>There was an unexpected error. Try again in a few minutes. Contact us if the problem persist.</p>
+
+    <?php
 }
