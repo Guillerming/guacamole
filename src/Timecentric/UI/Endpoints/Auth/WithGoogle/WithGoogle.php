@@ -21,9 +21,14 @@ use Guacamole\Models\User;
 use Throwable;
 use Timecentric\Enums\CookieNames;
 use Timecentric\Helpers\RouteHelper;
+use Timecentric\Middlewares\GuestMiddleware;
 use Timecentric\Router\RouteIds;
 
 class WithGoogle extends EndpointModel {
+    public function __construct() {
+        self::addMiddleware(GuestMiddleware::class);
+    }
+
     /**
      * Exchange authorization code for access token and get user data
      * 

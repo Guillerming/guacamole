@@ -12,6 +12,7 @@ use Guacamole\Models\Url;
 use Guacamole\UI\HeadData;
 use Timecentric\Enums\CookieNames;
 use Timecentric\Helpers\RouteHelper;
+use Timecentric\Middlewares\GuestMiddleware;
 use Timecentric\Router\RouteIds;
 use Timecentric\UI\Layouts\Web;
 
@@ -19,6 +20,7 @@ class LoginPage extends PageModel {
     private static ?string $state = null;
 
     public function __construct() {
+        self::addMiddleware(GuestMiddleware::class);
         self::$state = bin2hex(random_bytes(16));
 
         CookieHelper::set(

@@ -13,25 +13,25 @@ use Guacamole\Middleware\Abstract\MiddlewareModel;
 use Timecentric\Helpers\RouteHelper;
 use Timecentric\Router\RouteIds;
 
-class AuthMiddleware extends MiddlewareModel {
+class GuestMiddleware extends MiddlewareModel {
     private static function isEndpoint(): ?Response {
-        if (UserHelper::current()) {
+        if (!UserHelper::current()) {
             return null;
         }
 
         return new Response(
             status: 401,
-            message: 'Unauthorized access',
+            message: 'Only guests',
             data: null,
         );
     }
 
     private static function isPage(): ?Response {
         if (UserHelper::current()) {
-            return null;
+            return Response::redirect(RouteHelper::link(RouteIds::Dashboard));
         }
 
-        return Response::redirect(RouteHelper::link(RouteIds::Login));
+        return null;
     }
 
     public static function run(HttpResource $page): ?Response {
