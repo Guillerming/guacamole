@@ -16,7 +16,7 @@ class AppConfig {
      * @param array<string,mixed> $params. Default [].
      */
     static function baseUrl(?string $append = null, array $params = []): Url {
-        $port = Env::get('HTTPS_PORT');
+        $port = Env::get('NGINX_EXTERNAL_PORT');
         if (gettype($port) != 'string') {
             $port = null;
         }

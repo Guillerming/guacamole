@@ -64,8 +64,8 @@ final class MigrationsCommand {
             $username = DatabaseData::getUser();
             $password = DatabaseData::getPassword();
 
-            // Connect to PostgreSQL server (not specific database)
-            $dsn = "pgsql:host={$host};port={$port}";
+            // Connect to PostgreSQL server (postgres database is always present)
+            $dsn = "pgsql:host={$host};port={$port};dbname=postgres";
             $pdo = new \PDO($dsn, $username, $password);
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
