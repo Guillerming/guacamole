@@ -9,7 +9,9 @@ use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\UI\HeadData;
 use Guacamole\UI\OpenGraphData;
+use Timecentric\Helpers\RouteHelper;
 use Timecentric\Middlewares\AuthMiddleware;
+use Timecentric\Router\RouteIds;
 use Timecentric\UI\Layouts\Web;
 
 class HomePage extends PageModel {
@@ -40,6 +42,11 @@ class HomePage extends PageModel {
     }
 
     public static function html(): void { ?>
+        <nav>
+            <ul>
+                <li><a href="<?php echo RouteHelper::link(RouteIds::Login); ?>">Login</a></li>
+            </ul>
+        </nav>
         <h1>TimeCentric</h1>
     <?php }
     }
