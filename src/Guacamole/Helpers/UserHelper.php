@@ -70,6 +70,20 @@ final class UserHelper {
         );
     }
 
+    /**
+     * Generate JWT token for a specific user (used during OAuth login)
+     */
+    public static function generateJwtForUser(User $user): string {
+        return JWT::encode(
+            payload: [
+                'user_id' => $user->getId(),
+                'exp' => time() + (self::getJwtExpiration() * 3600),
+            ],
+            key: self::getJwtSecret(),
+            alg: 'HS256',
+        );
+    }
+
     public static function findByEmail(string $email): ?User {
         $repo = new UserRepository();
 

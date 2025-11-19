@@ -4,17 +4,27 @@ declare(strict_types=1);
 
 namespace Timecentric\UI\Pages\Auth\Login;
 
-use Guacamole\Config\AppConfig;
 use Guacamole\Config\Env;
+use Guacamole\Helpers\CookieHelper;
 use Guacamole\Http\Abstract\LayoutModel;
 use Guacamole\Http\Abstract\PageModel;
 use Guacamole\Models\Url;
 use Guacamole\UI\HeadData;
+use Timecentric\Enums\CookieNames;
+use Timecentric\Helpers\RouteHelper;
 use Timecentric\Router\RouteIds;
 use Timecentric\UI\Layouts\Web;
 
 class LoginPage extends PageModel {
+    private static ?string $state = null;
+
     public function __construct() {
+        self::$state = bin2hex(random_bytes(16));
+
+        CookieHelper::set(
+            name: CookieNames::GoogleOAuthState,
+            value: self::$state,
+        );
     }
 
     public static function useLayout(): LayoutModel {
@@ -35,26 +45,16 @@ class LoginPage extends PageModel {
     }
 
     private static function getLoginWithGoogleLink(): string {
-        $state = bin2hex(random_bytes(16));
-        setcookie(
-            name: 'google-oauth-state',
-            value: $state,
-            expires_or_options: time() + 60 * 5,
-            path: '/',
-            secure: true,
-            httponly: true,
-        );
-
         $url = new Url(
             protocol: 'https',
             hostname: 'accounts.google.com',
             path: '/o/oauth2/v2/auth',
             params: [
                 'client_id' => Env::get('GOOGLE_OAUTH_CLIENT_ID'),
-                'redirect_uri' => AppConfig::baseUrl(RouteIds::LoginCallback->value),
+                'redirect_uri' => RouteHelper::link(RouteIds::LoginCallback),
                 'response_type' => 'code',
                 'scope' => 'openid email profile',
-                'state' => $state,
+                'state' => self::$state,
             ]
         );
 
