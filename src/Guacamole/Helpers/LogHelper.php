@@ -26,4 +26,38 @@ class LogHelper {
         self::vd($data);
         exit;
     }
+
+    /**
+     * Log message to stdout with optional data array
+     *
+     * @param array<mixed>|null $data
+     */
+    public static function log(string $message, ?array $data = null): void {
+        $output = $message;
+        if ($data !== null) {
+            $jsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $output .= ' ' . $jsonData;
+        }
+
+        $stream = fopen('php://stdout', 'w');
+        assert(gettype($stream) == 'resource');
+        fwrite($stream, $output . "\n");
+    }
+
+    /**
+     * Log error to stderr with optional data array
+     *
+     * @param array<mixed>|null $data
+     */
+    public static function error(string $message, ?array $data = null): void {
+        $output = $message;
+        if ($data !== null) {
+            $jsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $output .= ' ' . $jsonData;
+        }
+
+        $stream = fopen('php://stderr', 'w');
+        assert(gettype($stream) == 'resource');
+        fwrite($stream, $output . "\n");
+    }
 }
