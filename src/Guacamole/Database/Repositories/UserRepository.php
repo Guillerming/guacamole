@@ -22,9 +22,14 @@ final class UserRepository {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE id = :id LIMIT 1');
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
         assert(is_array($row));
 
-        return $row ? $this->mapRowToUser($row) : null;
+        return $this->mapRowToUser($row);
     }
 
     public function findByEmail(string $email): ?User {
@@ -34,9 +39,14 @@ final class UserRepository {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE email = :email LIMIT 1');
         $stmt->execute(['email' => $email]);
         $row = $stmt->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
         assert(is_array($row));
 
-        return $row ? $this->mapRowToUser($row) : null;
+        return $this->mapRowToUser($row);
     }
 
     public function findByGoogleId(string $googleId): ?User {
@@ -46,9 +56,14 @@ final class UserRepository {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE google_id = :google_id LIMIT 1');
         $stmt->execute(['google_id' => $googleId]);
         $row = $stmt->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
         assert(is_array($row));
 
-        return $row ? $this->mapRowToUser($row) : null;
+        return $this->mapRowToUser($row);
     }
 
     public function create(User $user): ?User {
@@ -76,13 +91,13 @@ final class UserRepository {
      * @param array<mixed,mixed> $row
      */
     private function mapRowToUser(array $row): User {
-        assert(isset($row['id']) && is_string($row['id']));
+        assert(isset($row['id']) && (is_string($row['id']) || is_int($row['id'])));
         assert(isset($row['name']) && is_string($row['name']));
         assert(isset($row['email']) && is_string($row['email']));
-        assert(isset($row['google_id']) && is_string($row['google_id']));
-        assert(isset($row['avatar']) && is_string($row['avatar']));
+        assert(array_key_exists('google_id', $row) && (is_string($row['google_id']) || is_null($row['google_id'])));
+        assert(array_key_exists('avatar', $row) && (is_string($row['avatar']) || is_null($row['avatar'])));
         assert(isset($row['is_enabled']) && (is_bool($row['is_enabled']) || is_string($row['is_enabled'])));
-        assert(isset($row['subscription_status']) && is_string($row['subscription_status']));
+        assert(array_key_exists('subscription_status', $row) && (is_string($row['subscription_status']) || is_null($row['subscription_status'])));
 
         return new User(
             (int)$row['id'],
