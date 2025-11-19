@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Timecentric\Middlewares;
 
+use Guacamole\Helpers\UserHelper;
 use Guacamole\Http\Abstract\EndpointModel;
 use Guacamole\Http\Abstract\HttpResource;
 use Guacamole\Http\Response;
 use Guacamole\Middleware\Abstract\MiddlewareModel;
+use Timecentric\Helpers\RouteHelper;
+use Timecentric\Router\RouteIds;
 
 class AuthMiddleware extends MiddlewareModel {
-    private static bool $forceNotLoggedIn = false; // TODO: Delete after testing
-
     private static function isEndpoint(): ?Response {
-        // TODO: Create the actual conditions
-        if (!self::$forceNotLoggedIn) {
+        if (UserHelper::current()) {
             return null;
         }
 
@@ -26,12 +26,11 @@ class AuthMiddleware extends MiddlewareModel {
     }
 
     private static function isPage(): ?Response {
-        // TODO: Create the actual conditions
-        if (!self::$forceNotLoggedIn) {
+        if (UserHelper::current()) {
             return null;
         }
 
-        return Response::redirect('/auth/login');
+        return Response::redirect(RouteHelper::link(RouteIds::Login));
     }
 
     public static function run(HttpResource $page): ?Response {
