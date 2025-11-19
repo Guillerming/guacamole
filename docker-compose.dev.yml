@@ -10,6 +10,9 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./dist:/var/www/html/dist
+      - ./Console:/var/www/html/Console
+      - ./guacamole:/var/www/html/guacamole
+      - ./.env:/var/www/html/.env
     depends_on:
       - timecentric-db
     environment:
@@ -17,6 +20,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
   timecentric-nginx:
     container_name: timecentric-nginx
     image: nginx:latest
@@ -41,6 +45,8 @@ services:
       POSTGRES_NAME: ${POSTGRES_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:

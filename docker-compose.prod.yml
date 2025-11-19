@@ -8,6 +8,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    volumes:
+      - ./dist:/var/www/html/dist
+      - ./Console:/var/www/html/Console
+      - ./guacamole:/var/www/html/guacamole
+      - ./.env:/var/www/html/.env
     depends_on:
       - timecentric-db
     environment:

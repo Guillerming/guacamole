@@ -12,7 +12,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /var/www/html
 COPY composer.json composer.lock ./
 COPY package.json package-lock.json ./
-COPY .env ./
+
+
+# COPY guacamole guacamole ./
+# COPY Console ./Console
+# COPY .env ./
 
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install -g vite && npm install

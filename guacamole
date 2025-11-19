@@ -4,8 +4,12 @@
 declare(strict_types=1);
 
 // Load autoloader and environment
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/Guacamole/Guacamole.php';
+require_once __DIR__.'/vendor/autoload.php';
+$guacamolePath = __DIR__.'/src/Guacamole/Guacamole.php';
+if (!file_exists($guacamolePath)) {
+    $guacamolePath = str_replace('/src/', '/dist/', $guacamolePath);
+}
+require_once $guacamolePath;
 
 use Console\Commands\MigrationsCommand;
 use Console\Tools\Output;
@@ -28,7 +32,7 @@ try {
         default => showUnknownCommand($verb),
     };
 } catch (\Exception $e) {
-    Output::error("Command execution failed: " . $e->getMessage());
+    Output::error("Command execution failed: ".$e->getMessage());
     exit(1);
 }
 
