@@ -48,6 +48,29 @@ class MyClass {
 - **No Comments**: Avoid adding comments in the code unless absolutely necessary for complex logic. The code should be self-documenting.
 - **PHPDoc**: Use PHPDoc only when type hints are insufficient (e.g., `array<string, User>`).
 
+## 🚦 Routing
+
+- **Route IDs**: Always use the `RouteIds` enum for route paths. Never hardcode strings.
+- **Link Generation**: Use `RouteHelper::link()` to generate URLs.
+  ```php
+  // Good
+  <a href="<?php echo RouteHelper::link(RouteIds::Login); ?>">Login</a>
+
+  // Bad
+  <a href="/auth/login">Login</a>
+  ```
+
+## 🖥️ Templates & Views
+
+- **PHP Tags**: Always use full PHP tags `<?php ... ?>`. Short echo tags `<?= ... ?>` are **forbidden**.
+  ```php
+  // Good
+  <?php echo $variable; ?>
+
+  // Bad
+  <?= $variable ?>
+  ```
+
 ## 🛠️ Enforcement
 
 Run the following commands to check and fix code style:
