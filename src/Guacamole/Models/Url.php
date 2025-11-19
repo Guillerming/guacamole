@@ -36,6 +36,22 @@ class Url {
         }
     }
 
+    public function getProtocol(): string {
+        return $this->protocol;
+    }
+
+    public function getHostname(): string {
+        return $this->hostname;
+    }
+
+    public function getPort(): ?int {
+        return $this->port;
+    }
+
+    public function getPath(): ?string {
+        return $this->path;
+    }
+
     /**
      * Returns the full url
      * 
